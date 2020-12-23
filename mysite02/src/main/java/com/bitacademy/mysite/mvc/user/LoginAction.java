@@ -11,24 +11,26 @@ import com.bitacademy.mysite.vo.UserVo;
 import com.bitacademy.web.mvc.Action;
 import com.bitacademy.web.util.WebUtil;
 
-public class JoinAction implements Action {
+public class LoginAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		String gender = request.getParameter("gender");
 		
-		UserVo userVo = new UserVo();
-		userVo.setName(name);
-		userVo.setEmail(email);
-		userVo.setPassword(password);
-		userVo.setGender(gender);
+		UserVo vo = new UserVo();
+		vo.setEmail(email);
+		vo.setPassword(password);
 		
-		new UserRepository().insert(userVo);
+		UserVo userVo = new UserRepository().findByEmailAndPassword(vo);
+		if(userVo == null) {
+			request.setAttribute("email", email);
+			WebUtil.forward(request, response, "/WEB-INF/views/user/loginform.jsp");
+			return;
+		}
 		
-		WebUtil.redirect(request, response, request.getContextPath() + "/user?a=joinsuccess");
+		/* 로그인 처리 */
+		
 	}
 
 }
