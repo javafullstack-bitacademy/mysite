@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.bitacademy.web.mvc.Action;
 import com.bitacademy.web.util.WebUtil;
@@ -33,6 +34,7 @@ public class MainAction implements Action {
 		cookie.setPath(request.getContextPath());
 		cookie.setMaxAge(24*60*60);  // 1day
 		response.addCookie(cookie);
+		
 		
 		WebUtil.forward(request, response, "/WEB-INF/views/main/index.jsp");
 	}
