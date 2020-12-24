@@ -12,23 +12,34 @@ import com.bitacademy.mysite.vo.UserVo;
 import com.bitacademy.web.mvc.Action;
 import com.bitacademy.web.util.WebUtil;
 
-public class UpdateformAction implements Action {
+public class UpdateAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		
+
 		// 접근제어
 		if(authUser == null) {
 			WebUtil.redirect(request, response, request.getContextPath());
 			return;
 		}
 		
-		UserVo userVo = new UserRepository().findByNo(authUser.getNo());
-		request.setAttribute("vo", userVo);
+		String name = request.getParameter("name");
+		String password = request.getParameter("password");
+		String gender = request.getParameter("gender");
 		
-		WebUtil.forward(request, response, "/WEB-INF/views/user/updateform.jsp");
+		UserVo vo = new UserVo();
+		vo.setNo(authUser.getNo());
+		vo.setName(name);
+		vo.setPassword(password);
+		vo.setGender(gender);
+		
+		boolean result = new UserRepository().update(vo);
+		if(result) {
+			authUser.setName(name);
+		}
+		
+		WebUtil.redirect(request, response, request.getContextPath()+ "/user?a=updateform" );
 	}
-
 }
