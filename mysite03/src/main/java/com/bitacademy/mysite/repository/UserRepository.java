@@ -5,8 +5,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import org.springframework.stereotype.Repository;
+
 import com.bitacademy.mysite.vo.UserVo;
 
+@Repository
 public class UserRepository {
 	
 	public UserVo findByNo(Long userNo) {
@@ -122,9 +126,9 @@ public class UserRepository {
 		return userVo;
 	}
 
-	public boolean update(UserVo vo) {
-		boolean result = false;
-
+	public int update(UserVo vo) {
+		int count = 0;
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -147,8 +151,7 @@ public class UserRepository {
 				pstmt.setLong(4, vo.getNo());
 			}
 			
-			int count = pstmt.executeUpdate();
-			result = count == 1;
+			count = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
@@ -165,11 +168,11 @@ public class UserRepository {
 			}
 		}		
 		
-		return result;		
+		return count;		
 	}
 	
-	public boolean insert(UserVo userVo) {
-		boolean result = false;
+	public int insert(UserVo userVo) {
+		int count = 0;
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -190,10 +193,7 @@ public class UserRepository {
 			pstmt.setString(4, userVo.getGender());
 			
 			// 5. sql문 실행
-			int count = pstmt.executeUpdate();
-			
-			result = count == 1;
-			
+			count = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("error:" + e);
 		} finally {
@@ -210,7 +210,7 @@ public class UserRepository {
 			}
 		}		
 		
-		return result;		
+		return count;		
 	}
 	
 	private Connection getConnection() throws SQLException{
