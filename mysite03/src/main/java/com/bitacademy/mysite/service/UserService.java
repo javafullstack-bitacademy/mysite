@@ -12,11 +12,16 @@ public class UserService {
 	private UserRepository userRepository;
 
 	public boolean join(UserVo vo) {
+		System.out.println("before--->" + vo);
 		int count = userRepository.insert(vo);
+		System.out.println("after--->" + vo);
+
 		return count == 1;
 	}
 
 	public UserVo getUser(UserVo vo) {
+		// System.out.println("findbyEmail-->" + userRepository.findByEmail(vo.getEmail()));
+		// return userRepository.findByEmailAndPassword2(vo);
 		return userRepository.findByEmailAndPassword(vo);
 	}
 
