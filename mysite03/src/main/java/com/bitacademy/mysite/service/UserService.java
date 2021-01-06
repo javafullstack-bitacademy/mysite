@@ -1,5 +1,7 @@
 package com.bitacademy.mysite.service;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,13 +10,15 @@ import com.bitacademy.mysite.vo.UserVo;
 
 @Service
 public class UserService {
+	private static final Log LOGGER = LogFactory.getLog(UserService.class);
+
 	@Autowired
 	private UserRepository userRepository;
 
 	public boolean join(UserVo vo) {
-		System.out.println("before--->" + vo);
+		LOGGER.info("before--->" + vo);
 		int count = userRepository.insert(vo);
-		System.out.println("after--->" + vo);
+		LOGGER.info("after--->" + vo);
 
 		return count == 1;
 	}
