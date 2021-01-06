@@ -1,17 +1,15 @@
 package com.bitacademy.mysite.controller;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.bitacademy.mysite.service.UserService;
 import com.bitacademy.mysite.vo.UserVo;
+import com.bitacademy.security.Auth;
+import com.bitacademy.security.AuthUser;
 
 @Controller
 @RequestMapping("/user")
@@ -40,13 +38,10 @@ public class UserController {
 		return "user/joinsuccess";
 	}
 	
+	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.GET)
-	public String update(HttpSession session, Model model) {
-		// ACL(접근제어)
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		if(authUser == null) {
-			return "redirect:/";
-		}
+	public String update(@AuthUser UserVo authUser, Model model) {
+		System.out.println(authUser);
 		
 		Long no = authUser.getNo();
 		UserVo userVo = userService.getUser(no);
@@ -55,14 +50,9 @@ public class UserController {
 		return "user/update";
 	}
 
+	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public String update(HttpSession session, UserVo userVo) {
-		// ACL(접근제어)
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		if(authUser == null) {
-			return "redirect:/";
-		}
-		
+	public String update(@AuthUser UserVo authUser, UserVo userVo) {
 		Long no = authUser.getNo();
 		userVo.setNo(no);
 		
