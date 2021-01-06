@@ -1,5 +1,7 @@
 package com.bitacademy.mysite.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,8 +43,6 @@ public class UserController {
 	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.GET)
 	public String update(@AuthUser UserVo authUser, Model model) {
-		System.out.println(authUser);
-		
 		Long no = authUser.getNo();
 		UserVo userVo = userService.getUser(no);
 		
