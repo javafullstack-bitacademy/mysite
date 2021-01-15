@@ -68,9 +68,13 @@ public class UserController {
 		userService.updateUser(userVo);
 		return "redirect:/user/update";
 	}
+
+	@RequestMapping(value="/auth", method=RequestMethod.POST)
+	public void auth() {
+	}
+
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public void logout() {
+	}
 	
-//	@ExceptionHandler(Exception.class)
-//	public String handleException() {
-//		return "error/exception";
-//	}
 }
