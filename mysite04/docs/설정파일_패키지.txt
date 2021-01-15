@@ -22,27 +22,28 @@
 	 |                                 |--- /vo
 	 |                                 |--- /exception
 	 |                                 |--- /aop
-         |                                 |--- /config
+     |                                 |--- /config
 	 |                                          |--- AppConfig.java
-         |                                          |--- WebConfig.java
+     |                                          |--- WebConfig.java
 	 |---- [resources]
-		  |--- logback.xml
-	 	  |--- /com
-	                 |--- /bitacademy
-				  |--- /mysite
-                                          |--- /app
-					  |      |--- /properties
-					  |              |--- jdbc.properties
-					  |      |--- /mybatis
-					  |              |--- configuration.xml
-                                          |              |--- /mappers
-					  |                       |--- user.xml
-					  |                       |--- board.xml
-                                          |--- /web
-						 |--- /properties
-							  |--- fileupload.properties			
-							  |--- message_ko.properties
+		        |--- logback.xml
+	 	        |--- /com
+	                   |--- /bitacademy
+				                 |--- /mysite
+                                         |--- /app
+					                     |      |--- /properties
+					                     |      |         |--- jdbc.properties
+					                     |      |--- /mybatis
+					                     |              |--- configuration.xml
+                                         |              |--- /mappers
+					                     |                       |--- user.xml
+					                     |                       |--- board.xml
+                                         |--- /web
+						                        |--- /properties
+							                            |--- fileupload.properties			
+							                            |--- message_ko.properties
 		                           
+=======================================================================================
 
 com.bitacademy.config.app
 com.bitacademy.config.web
