@@ -77,7 +77,7 @@ spring:
 ---
 # server
 server:
-   port: 8088
+   port: 8888
    servlet:
       context-path: /mysite06
 

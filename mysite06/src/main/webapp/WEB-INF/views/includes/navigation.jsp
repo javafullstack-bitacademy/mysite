@@ -8,4 +8,6 @@
 				<li><a href="${pageContext.request.contextPath }/guestbook">방명록</a></li>
 				<li><a href="${pageContext.request.contextPath }/board">게시판</a></li>
 			</ul>
+			
+			<h4>테스트입니다.</h4>
 		</div>
