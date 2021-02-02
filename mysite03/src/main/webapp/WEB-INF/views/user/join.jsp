@@ -12,6 +12,46 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/assets/js/jquery/jquery-3.5.1.js"></script>
 <script>
 $(function(){
+	$('#join-form').submit(function(e){
+			e.preventDefault();	
+		
+			if($('#name').val() == ''){
+				alert('이름이 비어있습니다.');
+				$('#name').focus();
+				return;
+			}
+
+			if($('#email').val() == ''){
+				alert('이메일이 비어있습니다.');
+				$('#email').focus();
+				return;
+			}
+			
+			if($('#img-check-email').is(':hidden')){
+				alert('이메일 중복 체크를 하지 않았습니다.');
+				return;
+			}
+	
+			if($('#password').val() == ''){
+				alert('비밀번호가 비어있습니다.');
+				$('#password').focus();
+				return;
+			}
+
+			if(!$('#agree-prov').is(':checked')){
+				alert('약관 동의가 필요합니다.');
+				$('#agree-prov').focus();
+				return;
+			}
+			
+			this.submit();
+	});
+	
+	$('#email').change(function(){
+		$('#img-check-email').hide();
+		$('#btn-check-email').show();		
+	});
+	
 	$('#btn-check-email').click(function(){
 		let email = $("#email").val();
 		if(email == ''){
@@ -20,11 +60,12 @@ $(function(){
 		}
 		
 		$.ajax({
-			url: '${pageContext.request.contextPath }/api/user/existemail?' + email,
+			url: '${pageContext.request.contextPath }/api/user/existemail?email=' + email,
 			async: true, 
 			data: '',
 			dataType: 'json', 
 			success: function(response){
+				console.log(response);
 				if(response.result != 'success'){
 					console.error(response.message);
 					return;
@@ -46,7 +87,6 @@ $(function(){
 				consol.error(status + ":" + e);
 			}
 		});		
-		
 	});
 });
 </script>
