@@ -21,6 +21,10 @@ public class GuestbookService {
 		return guestbookRepository.findAll();
 	}
 
+	public List<GuestbookVo> getMessageList(Long startNo) {
+		return guestbookRepository.findAll(startNo);
+	}
+	
 	public void writeMessage(GuestbookVo vo) {
 		LOGGER.info("---->before:" + vo);
 		guestbookRepository.insert(vo);
